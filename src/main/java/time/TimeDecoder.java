@@ -1,5 +1,6 @@
 package time;
 
+import PoJo.UnixTime;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -13,7 +14,7 @@ public class TimeDecoder extends ByteToMessageDecoder{ // (1)
             return; // (3)
         }
 
-        out.add(in.readBytes(4)); // (4)
+        out.add(new UnixTime(in.readUnsignedInt())); // (4)
     }
 //    1.ByteToMessageDecoder是ChannelInboundHandler的一个实现，它使得处理碎片问题变得容易。
 //    2.ByteToMessageDecoder在接收到新数据时，使用内部维护的累积缓冲区调用decode()方法。

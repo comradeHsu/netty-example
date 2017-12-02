@@ -1,5 +1,6 @@
 package time;
 
+import PoJo.TimePoJoClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -24,7 +25,7 @@ public class TimeClient {
             b.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 public void initChannel(SocketChannel ch) throws Exception {
-                    ch.pipeline().addLast(new TimeDecoder(), new TimeClientHandler());
+                    ch.pipeline().addLast(new TimeDecoder(), new TimePoJoClientHandler());
                 }
             });
 

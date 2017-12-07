@@ -1,6 +1,4 @@
-package discard;
 
-import PoJo.TimeEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -9,13 +7,13 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import time.TimeServerHandler;
+import io.netty.handler.codec.http.HttpServerCodec;
 
-public class DiscardServer {
+public class HttpServer {
 
     private int port;
 
-    public DiscardServer(int port) {
+    public HttpServer(int port) {
         this.port = port;
     }
 
@@ -29,7 +27,7 @@ public class DiscardServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new TimeEncoder(),new TimeServerHandler());
+                            ch.pipeline().addLast(new HttpServerCodec(),new HttpServerHandler());
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
@@ -55,6 +53,6 @@ public class DiscardServer {
         } else {
             port = 8089;
         }
-        new DiscardServer(port).run();
+        new HttpServer(port).run();
     }
 }

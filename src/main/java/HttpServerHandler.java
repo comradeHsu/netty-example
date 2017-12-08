@@ -32,7 +32,8 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             HttpRequest req = (HttpRequest) msg;
             System.out.print(req.toString());
             boolean keepAlive = HttpUtil.isKeepAlive(req);
-            FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(req.toString().getBytes()));
+            String x = req.uri();
+            FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(x.getBytes()));
             response.headers().set(CONTENT_TYPE, "text/plain");
             response.headers().setInt(CONTENT_LENGTH, response.content().readableBytes());
 

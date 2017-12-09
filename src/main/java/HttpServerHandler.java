@@ -32,9 +32,18 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             HttpRequest req = (HttpRequest) msg;
             System.out.print(req.toString());
             boolean keepAlive = HttpUtil.isKeepAlive(req);
-            String x = req.uri();
+            String x = "<!DOCTYPE html>\n" +
+                    "<html lang=\"en\">\n" +
+                    "<head>\n" +
+                    "    <meta charset=\"UTF-8\">\n" +
+                    "    <title>Title</title>\n" +
+                    "</head>\n" +
+                    "<body>\n" +
+                    "\n" +
+                    "</body>\n" +
+                    "</html>";
             FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(x.getBytes()));
-            response.headers().set(CONTENT_TYPE, "text/plain");
+            response.headers().set(CONTENT_TYPE, "text/html");
             response.headers().setInt(CONTENT_LENGTH, response.content().readableBytes());
 
             if (!keepAlive) {

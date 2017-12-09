@@ -1,6 +1,5 @@
 package route;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.http.*;
 
 import java.util.*;
@@ -35,5 +34,9 @@ public class RouteContext {
 
     public Map<String,String> queryParams(){
         return this.params;
+    }
+
+    public<T> T getBodyAsJson(Class<T> clazz){
+        return null;
     }
 }
